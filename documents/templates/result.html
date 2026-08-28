@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Processing Complete</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+    margin:0;
+    font-family:'Poppins', sans-serif;
+    background:#0f172a;
+    color:white;
+}
+
+/* BACKGROUND */
+.bg{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:linear-gradient(135deg,#020617,#0f172a);
+    z-index:-1;
+}
+
+.bg::before{
+    content:"";
+    position:absolute;
+    width:300px;
+    height:300px;
+    background:#7c3aed;
+    filter:blur(120px);
+    top:10%;
+    left:10%;
+}
+
+.bg::after{
+    content:"";
+    position:absolute;
+    width:300px;
+    height:300px;
+    background:#2563eb;
+    filter:blur(120px);
+    bottom:10%;
+    right:10%;
+}
+
+/* MAIN */
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:60px 20px;
+}
+
+/* SUCCESS HEADER */
+.success{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.success h1{
+    font-size:32px;
+}
+
+.success span{
+    font-size:60px;
+}
+
+/* SECTION */
+.section{
+    margin-bottom:30px;
+}
+
+/* CARD STYLE (SOFT, NO HEAVY BOX) */
+.card{
+    padding:20px;
+    border-radius:15px;
+    background:rgba(255,255,255,0.03);
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+/* TEXT */
+.summary{
+    line-height:1.6;
+    opacity:0.9;
+}
+
+/* AUDIO */
+audio{
+    width:100%;
+    margin-top:10px;
+}
+
+/* RECOMMENDATION */
+.recommendations{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
+}
+
+.rec-card{
+    padding:15px;
+    border-radius:12px;
+    background:rgba(124,58,237,0.1);
+    transition:0.3s;
+}
+
+.rec-card:hover{
+    background:rgba(124,58,237,0.2);
+    transform:translateY(-3px);
+}
+
+/* BUTTON */
+.btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 20px;
+    border-radius:10px;
+    background:linear-gradient(135deg,#7c3aed,#2563eb);
+    color:white;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+.btn:hover{
+    box-shadow:0 0 15px #7c3aed;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<div class="container">
+
+<!-- SUCCESS -->
+<div class="success">
+    <span>✅</span>
+    <h1>Processing Completed Successfully</h1>
+</div>
+
+<!-- TITLE -->
+<div class="section card">
+    <h3>📄 Document Title</h3>
+    <p>{{ document.title }}</p>
+</div>
+
+<!-- SUMMARY -->
+<div class="section card">
+    <h3>🧠 AI Summary</h3>
+    <p class="summary">{{ summary }}</p>
+</div>
+
+<!-- AUDIO -->
+<div class="section card">
+    <h3>🔊 English Audio</h3>
+    <audio controls>
+        <source src="{{ english_audio_url }}" type="audio/mp3">
+    </audio>
+
+    <h3 style="margin-top:20px;">🌐 Translated Audio</h3>
+    <audio controls>
+        <source src="{{ translated_audio_url }}" type="audio/mp3">
+    </audio>
+</div>
+
+<!-- TRANSLATED TEXT -->
+<div class="section card">
+    <h3>🌍 Translated Summary</h3>
+    <p class="summary">{{ translated_text }}</p>
+</div>
+
+<!-- RECOMMENDATIONS -->
+<div class="section">
+    <h3>📚 Recommended Documents</h3>
+
+    <div class="recommendations">
+        {% for doc in recommendations %}
+        <div class="rec-card">
+            {{ doc.title }}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- ACTION -->
+<div style="text-align:center;">
+    <a href="/dashboard/" class="btn">⬅ Back to Dashboard</a>
+</div>
+
+</div>
+
+</body>
+</html>

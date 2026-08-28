@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div style="display:flex; height:100vh;">
+
+    <!-- LEFT SIDE -->
+    <div style="flex:1; background:linear-gradient(135deg,#2563eb,#7c3aed); color:white; display:flex; flex-direction:column; justify-content:center; padding:60px;">
+
+        <h1 style="font-size:40px; margin-bottom:20px;">
+            🚀 Join DocuMind AI
+        </h1>
+
+        <p style="font-size:18px; max-width:420px; line-height:1.6;">
+            Create your AI workspace and start transforming documents into insights, audio, and smart recommendations.
+        </p>
+
+        <div style="margin-top:40px;">
+            <p>📄 Upload & Analyze PDFs</p>
+            <p>🧠 AI Smart Summaries</p>
+            <p>🌍 Translate into multiple languages</p>
+            <p>🔊 Convert to Audio</p>
+        </div>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div style="flex:1; display:flex; align-items:center; justify-content:center; background:#f4f7ff;">
+
+        <div style="width:420px; background:white; padding:35px; border-radius:20px; box-shadow:0 15px 40px rgba(0,0,0,0.1);">
+
+            <h2 style="text-align:center; margin-bottom:25px;">Create Account</h2>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div style="padding:10px; margin-bottom:15px; border-radius:8px; background:#fee2e2; color:#991b1b;">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <input type="text" name="username" placeholder="Username"
+                    style="width:100%; padding:12px; margin-bottom:12px; border-radius:10px; border:1px solid #ddd;" required>
+
+                <input type="email" name="email" placeholder="Email"
+                    style="width:100%; padding:12px; margin-bottom:12px; border-radius:10px; border:1px solid #ddd;" required>
+
+                <input type="password" name="password" id="password" placeholder="Password"
+                    style="width:100%; padding:12px; margin-bottom:12px; border-radius:10px; border:1px solid #ddd;" required>
+
+                <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password"
+                    style="width:100%; padding:12px; margin-bottom:15px; border-radius:10px; border:1px solid #ddd;" required>
+
+                <!-- PASSWORD ERROR -->
+                <div id="error" style="color:red; font-size:14px; margin-bottom:10px;"></div>
+
+                <button type="submit"
+                    style="width:100%; padding:12px; background:linear-gradient(135deg,#2563eb,#7c3aed); color:white; border:none; border-radius:10px; font-weight:bold;">
+                    Register
+                </button>
+
+            </form>
+
+            <p style="text-align:center; margin-top:15px;">
+                Already have an account?
+                <a href="{% url 'login' %}" style="color:#2563eb; font-weight:bold;">Login</a>
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.querySelector("form").addEventListener("submit", function(e){
+    let pass = document.getElementById("password").value;
+    let confirm = document.getElementById("confirm_password").value;
+
+    if(pass !== confirm){
+        e.preventDefault();
+        document.getElementById("error").innerText = "Passwords do not match!";
+    }
+});
+</script>
+{% endblock %}

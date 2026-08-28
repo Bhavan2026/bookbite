@@ -1,0 +1,25 @@
+<h2>Search Results</h2>
+
+<form action="/search/" method="get">
+    <input type="text" name="q" placeholder="Search document">
+    <button type="submit">Search</button>
+</form>
+
+<hr>
+
+{% if results %}
+
+    {% for doc in results %}
+
+        <h3>{{ doc.title }}</h3>
+        <p>{{ doc.summary }}</p>
+
+        <hr>
+
+    {% endfor %}
+
+{% else %}
+
+    <p>No documents found.</p>
+
+{% endif %}

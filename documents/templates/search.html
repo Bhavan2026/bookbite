@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Search Documents</title>
+</head>
+
+<body>
+
+<h1>Search Documents</h1>
+
+<form method="GET">
+
+<input type="text" name="query" placeholder="Search documents">
+
+<button type="submit">Search</button>
+
+</form>
+
+<hr>
+
+{% if query %}
+
+<h2>Results for "{{ query }}"</h2>
+
+<ul>
+
+{% for doc in results %}
+
+<li>{{ doc.title }}</li>
+
+{% empty %}
+
+<li>No results found</li>
+
+{% endfor %}
+
+</ul>
+
+{% endif %}
+
+</body>
+
+</html>
